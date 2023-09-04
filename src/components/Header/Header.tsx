@@ -2,7 +2,7 @@ import logo from "../../assets/logo.png";
 import cartIcon from "../../assets/cartIcon.png";
 import Image from "next/image";
 import SearchBar from "../SearchBar/SearchBar";
-
+import Link from "next/link";
 const Header = () => {
   const customBorderClasses =
     "border border-transparent hover:border-white p-2 h-[3rem] flex flex-col justify-center";
@@ -11,13 +11,13 @@ const Header = () => {
 
   return (
     <header className="w-full h-[3.8rem] bg-amazon_blue text-white z-50 flex items-center cursor-pointer text-[0.8rem] font-[700] gap-[1rem] px-5">
-      <div className={customBorderClasses}>
+      <Link className={customBorderClasses} href={"../"}>
         <Image
           src={logo}
           alt="logo_amazon"
           className="w-[9rem]  object-cover"
         />
-      </div>
+      </Link>
 
       <div className={`${customBorderClasses} w-[13rem]`}>
         <span className="font-[400]"> Hello</span>
@@ -35,13 +35,15 @@ const Header = () => {
         <h2>& Orders</h2>
       </div>
 
-      <div className={`${customBorderClassesCart} flex w-[10rem] relative`}>
+      <Link
+        className={`${customBorderClassesCart} flex w-[10rem] relative`}
+        href={"/cart"}>
         <Image src={cartIcon} alt="logo_amazon" className="w-8" />
         <span className="absolute translate-x-[-1.01rem] translate-y-[-0.6rem] z-50 text-amazon_yellow font-[600] text-[1.2rem]">
           0
         </span>
         <h2 className="translate-y-[0.8rem] translate-x-1.5">Basket</h2>
-      </div>
+      </Link>
     </header>
   );
 };
