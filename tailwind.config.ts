@@ -21,6 +21,7 @@ const config: Config = {
       colors: {
         amazon_blue: "#131921",
         amazon_blue_light: "#232F3E",
+        amazon_blue_more_light: "#485769",
         amazon_yellow: "#febd69",
         lightText: "#ccc"
       },
