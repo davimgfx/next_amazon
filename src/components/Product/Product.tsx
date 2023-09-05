@@ -1,12 +1,19 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { HiShoppingCart } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
 import Image from "next/image";
 import { ProductProps } from "../../types/types";
+import nextSlice from "@/store/nextSlice";
+import { useDispatch } from "react-redux"
 
+function PromoPercent(price: number, oldPrice: number): string {
+  return (((oldPrice - price) / oldPrice) * 100).toFixed(0);
+}
 
-  
-const Product = ({ product }) => {
+const Product = ({ product }: { product: ProductProps }) => {
+
+  const dispatch = useDispatch()
+
   const {
     brand,
     category,
@@ -22,28 +29,34 @@ const Product = ({ product }) => {
   return (
     <div
       key={_id}
-      className="w-full bg-white text-black p-4 border border-gray-300 rounded-lg group overflow-hidden my-[2rem] cursor-pointer relative z-50">
+      className="w-full bg-white text-black p-4 border border-gray-300 rounded-lg group overflow-hidden my-[2rem]  relative z-50">
       <div className="w-full">
         <Image
           alt="productImage"
           src={image}
           width={300}
           height={300}
-          className="w-full h-full object-cover  hover:scale-110"
+          className="w-full h-full object-cover  hover:scale-110 cursor-pointer"
         />
       </div>
+
       {isNew && (
         <span className="py-[0.2rem] px-[0.4rem] bg-amazon_red text-white rounded-[0.2rem]">
-          Up to {(((oldPrice - price) / oldPrice) * 100).toFixed(0)}% off
+          Up to {PromoPercent(price, oldPrice)}% off
         </span>
       )}
+
       <h2>{title}</h2>
       {isNew && (
         <p>
-          $ {price} <span>Was: $ {oldPrice}</span>
+          $ {price}{" "}
+          <del className="text-[#777] text-[0.9rem]">Was: $ {oldPrice}</del>
         </p>
       )}
       {!isNew && <p>$ {price} </p>}
+      <div>
+        <p className="text-xs text-gray-500 tracking-wider">{category}</p>
+      </div>
       <div
         className="w-12 h-24 absolute bottom-[10rem] right-0 border-[1px] border-gray-400 bg-white rounded-md
           flex flex-col translate-x-20 group-hover:translate-x-0 transition-transform duration-300">
@@ -54,6 +67,21 @@ const Product = ({ product }) => {
           <FaHeart />
         </span>
       </div>
+      <button className="w-full bg-amazon_red text-white rounded-lg mt-2 font-medium h-10 hover:bg-amazon_yellow duration-300" onClick={() => dispatch(addToCart({
+        _id: _id,
+        brand: brand,
+        category: category,
+        description: description,
+        image: image,
+        isNew: isNew,
+        oldPrice: oldPrice,
+        price: price,
+        title: title,
+        quantity: 1,
+      }))
+      }>
+        ADD TO CART
+      </button>
     </div>
   );
 };
