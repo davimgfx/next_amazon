@@ -1,9 +1,18 @@
-import logo from "../../assets/logo.png";
-import cartIcon from "../../assets/cartIcon.png";
+import logo from "@/assets/logo.png";
+import cartIcon from "@/assets/cartIcon.png";
 import Image from "next/image";
 import SearchBar from "../SearchBar/SearchBar";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { StateProps } from "@/types/types";
+
 const Header = () => {
+  const {productData, favoriteData} = useSelector(
+    (state : StateProps) => state.next
+  )
+
+  console.log(productData, favoriteData);
+
   const customBorderClasses =
     "border border-transparent hover:border-white p-2 h-[3rem] flex flex-col justify-center";
   const customBorderClassesCart =

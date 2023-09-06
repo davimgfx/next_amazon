@@ -1,18 +1,17 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { HiShoppingCart } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
 import Image from "next/image";
 import { ProductProps } from "../../types/types";
-import nextSlice from "@/store/nextSlice";
-import { useDispatch } from "react-redux"
+import { addToCart } from "@/store/nextSlice";
+import { useDispatch } from "react-redux";
 
 function PromoPercent(price: number, oldPrice: number): string {
   return (((oldPrice - price) / oldPrice) * 100).toFixed(0);
 }
 
 const Product = ({ product }: { product: ProductProps }) => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {
     brand,
@@ -60,26 +59,48 @@ const Product = ({ product }: { product: ProductProps }) => {
       <div
         className="w-12 h-24 absolute bottom-[10rem] right-0 border-[1px] border-gray-400 bg-white rounded-md
           flex flex-col translate-x-20 group-hover:translate-x-0 transition-transform duration-300">
-        <span className="w-full h-full border-b-[1px] border-gray-400 flex items-center justify-center text-xl bg-transparent hover:text-amazon_red cursor-pointer duration-300">
+        <span
+          className="w-full h-full border-b-[1px] border-gray-400 flex items-center justify-center text-xl bg-transparent hover:text-amazon_red cursor-pointer duration-300"
+          onClick={() =>
+            dispatch(
+              addToCart({
+                _id: _id,
+                brand: brand,
+                category: category,
+                description: description,
+                image: image,
+                isNew: isNew,
+                oldPrice: oldPrice,
+                price: price,
+                title: title,
+                quantity: 1,
+              })
+            )
+          }>
           <HiShoppingCart />
         </span>
         <span className="w-full h-full border-b-[1px] border-gray-400 flex items-center justify-center text-xl bg-transparent hover:text-amazon_red cursor-pointer duration-300">
           <FaHeart />
         </span>
       </div>
-      <button className="w-full bg-amazon_red text-white rounded-lg mt-2 font-medium h-10 hover:bg-amazon_yellow duration-300" onClick={() => dispatch(addToCart({
-        _id: _id,
-        brand: brand,
-        category: category,
-        description: description,
-        image: image,
-        isNew: isNew,
-        oldPrice: oldPrice,
-        price: price,
-        title: title,
-        quantity: 1,
-      }))
-      }>
+      <button
+        className="w-full bg-amazon_red text-white rounded-lg mt-2 font-medium h-10 hover:bg-amazon_yellow duration-300"
+        onClick={() =>
+          dispatch(
+            addToCart({
+              _id: _id,
+              brand: brand,
+              category: category,
+              description: description,
+              image: image,
+              isNew: isNew,
+              oldPrice: oldPrice,
+              price: price,
+              title: title,
+              quantity: 1,
+            })
+          )
+        }>
         ADD TO CART
       </button>
     </div>

@@ -1,4 +1,4 @@
-import magnifyingGlassIcon from "../../assets/magnifying-glassIcon.png";
+import magnifyingGlassIcon from "@/assets/magnifying-glassIcon.png";
 import Image from "next/image";
 
 const SearchBar = () => {

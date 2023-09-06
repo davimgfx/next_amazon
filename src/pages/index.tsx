@@ -2,7 +2,7 @@ import { CarouselBanner, Products } from "@/components";
 import { ProductProps } from "../types/types"
 
 interface Props {
-  productData: ProductProps
+  productData: ProductProps[]
 }
 
 export default function Home({productData} : Props) {
