@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <R_Layout>
             <Component {...pageProps} />
           </R_Layout>
-        </div>{" "}
+        </div>
       </PersistGate>
     </Provider>
   );

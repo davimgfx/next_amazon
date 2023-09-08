@@ -7,11 +7,9 @@ import { useSelector } from "react-redux";
 import { StateProps } from "@/types/types";
 
 const Header = () => {
-  const {productData, favoriteData} = useSelector(
-    (state : StateProps) => state.next
-  )
-
-  console.log(productData, favoriteData);
+  const { productData, favoriteData } = useSelector(
+    (state: StateProps) => state.next
+  );
 
   const customBorderClasses =
     "border border-transparent hover:border-white p-2 h-[3rem] flex flex-col justify-center";
@@ -39,9 +37,14 @@ const Header = () => {
         <h2>Account & Lists</h2>
       </div>
 
-      <div className={`${customBorderClasses} w-[8rem]`}>
+      <div className={`${customBorderClasses} w-[8rem] relative`}>
         <span className="font-[400]">Returns</span>
-        <h2>& Orders</h2>
+        <h2>& Favorites</h2>
+        {favoriteData.length > 0 && (
+          <span className="text-amazon_yellow absolute bottom-2 left-[5rem]">
+            {favoriteData.length}
+          </span>
+        )}
       </div>
 
       <Link
@@ -49,7 +52,7 @@ const Header = () => {
         href={"/cart"}>
         <Image src={cartIcon} alt="logo_amazon" className="w-8" />
         <span className="absolute translate-x-[-1.01rem] translate-y-[-0.6rem] z-50 text-amazon_yellow font-[600] text-[1.2rem]">
-          0
+          {productData ? productData.length : 0}
         </span>
         <h2 className="translate-y-[0.8rem] translate-x-1.5">Basket</h2>
       </Link>

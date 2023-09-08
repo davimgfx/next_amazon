@@ -3,7 +3,7 @@ import { HiShoppingCart } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
 import Image from "next/image";
 import { ProductProps } from "../../types/types";
-import { addToCart } from "@/store/nextSlice";
+import { addToCart, addToFavorite } from "@/store/nextSlice";
 import { useDispatch } from "react-redux";
 
 function PromoPercent(price: number, oldPrice: number): string {
@@ -25,10 +25,29 @@ const Product = ({ product }: { product: ProductProps }) => {
     _id,
   } = product;
 
+  const handleAction = (actionType: "cart" | "favorite") => {
+    const action = actionType === "cart" ? addToCart : addToFavorite;
+    dispatch(
+      action({
+        _id,
+        brand,
+        category,
+        description,
+        image,
+        isNew,
+        oldPrice,
+        price,
+        title,
+        quantity: 1,
+      })
+    );
+  };
+
   return (
     <div
       key={_id}
-      className="w-full bg-white text-black p-4 border border-gray-300 rounded-lg group overflow-hidden my-[2rem]  relative z-50">
+      className="w-full bg-white text-black p-4 border border-gray-300 rounded-lg group overflow-hidden my-[2rem]  relative z-50"
+    >
       <div className="w-full">
         <Image
           alt="productImage"
@@ -48,59 +67,31 @@ const Product = ({ product }: { product: ProductProps }) => {
       <h2>{title}</h2>
       {isNew && (
         <p>
-          $ {price}{" "}
-          <del className="text-[#777] text-[0.9rem]">Was: $ {oldPrice}</del>
+          $ {price} <del className="text-[#777] text-[0.9rem]">Was: $ {oldPrice}</del>
         </p>
       )}
       {!isNew && <p>$ {price} </p>}
       <div>
         <p className="text-xs text-gray-500 tracking-wider">{category}</p>
       </div>
-      <div
-        className="w-12 h-24 absolute bottom-[10rem] right-0 border-[1px] border-gray-400 bg-white rounded-md
-          flex flex-col translate-x-20 group-hover:translate-x-0 transition-transform duration-300">
+      <div className="w-12 h-24 absolute bottom-[10rem] right-0 border-[1px] border-gray-400 bg-white rounded-md flex flex-col translate-x-20 group-hover:translate-x-0 transition-transform duration-300">
         <span
           className="w-full h-full border-b-[1px] border-gray-400 flex items-center justify-center text-xl bg-transparent hover:text-amazon_red cursor-pointer duration-300"
-          onClick={() =>
-            dispatch(
-              addToCart({
-                _id: _id,
-                brand: brand,
-                category: category,
-                description: description,
-                image: image,
-                isNew: isNew,
-                oldPrice: oldPrice,
-                price: price,
-                title: title,
-                quantity: 1,
-              })
-            )
-          }>
+          onClick={() => handleAction("cart")}
+        >
           <HiShoppingCart />
         </span>
-        <span className="w-full h-full border-b-[1px] border-gray-400 flex items-center justify-center text-xl bg-transparent hover:text-amazon_red cursor-pointer duration-300">
+        <span
+          className="w-full h-full border-b-[1px] border-gray-400 flex items-center justify-center text-xl bg-transparent hover:text-amazon_red cursor-pointer duration-300"
+          onClick={() => handleAction("favorite")}
+        >
           <FaHeart />
         </span>
       </div>
       <button
         className="w-full bg-amazon_red text-white rounded-lg mt-2 font-medium h-10 hover:bg-amazon_yellow duration-300"
-        onClick={() =>
-          dispatch(
-            addToCart({
-              _id: _id,
-              brand: brand,
-              category: category,
-              description: description,
-              image: image,
-              isNew: isNew,
-              oldPrice: oldPrice,
-              price: price,
-              title: title,
-              quantity: 1,
-            })
-          )
-        }>
+        onClick={() => handleAction("cart")}
+      >
         ADD TO CART
       </button>
     </div>
