@@ -59,7 +59,7 @@ export const nextSlice = createSlice({
 
     //Increase the quantity of the product
     increaseQuantity: (state, action) => {
-      const existingProduct = state.favoriteData.find(
+      const existingProduct = state.productData.find(
         (item: StoreProduct) => item._id === action.payload._id
       );
       existingProduct && existingProduct.quantity++;
@@ -67,9 +67,14 @@ export const nextSlice = createSlice({
 
     //Decrease the quantity of the product
     decreaseQuantity: (state, action) => {
-      const existingProduct = state.productData.filter(
-        (item) => item._id !== action.payload._id
+      const existingProduct = state.productData.find(
+        (item: StoreProduct) => item._id === action.payload._id
       );
+      if (existingProduct?.quantity === 1) {
+        existingProduct.quantity = 1;
+      } else {
+        existingProduct!.quantity--;
+      }
     },
 
     // Reset the Cart

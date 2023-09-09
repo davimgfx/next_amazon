@@ -5,4 +5,5 @@ import R_Layout from "./R_Layout.tsx/R_Layout";
 import CarouselBanner from "./CarouselBanner/CarouselBanner"
 import Products from "./Products/Products"
 import EmptyCart from "./EmptyCart/EmptyCart";
-export { Header, Footer, BottomHeader, R_Layout, CarouselBanner, Products, EmptyCart }
+import WithItemsCart from "./WithItemsCart/WithItemsCart";
+export { Header, Footer, BottomHeader, R_Layout, CarouselBanner, Products, EmptyCart, WithItemsCart }

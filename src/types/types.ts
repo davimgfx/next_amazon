@@ -8,6 +8,7 @@ export interface ProductProps {
   price: number;
   title: string;
   _id: number;
+  
 }
 
 export interface StoreProduct {

@@ -3,7 +3,7 @@ import Image from "next/image";
 import imageEmpty from "../../assets/kettle-desaturated._CB424694188_.svg";
 const EmptyCart = () => {
   return (
-    <>
+    <div className="flex flex-col justify-center items-center">
       <div className="flex gap-[2rem] bg-white p-[2rem] mt-[2rem] w-[80rem] mx-auto">
         <Image src={imageEmpty} alt="empty-cart" className="w-[20rem]" />
         <div>
@@ -26,7 +26,7 @@ const EmptyCart = () => {
         promotional code? We'll ask you to enter your claim code when it's time
         to pay.
       </p>
-    </>
+      </div>
   );
 };
 
