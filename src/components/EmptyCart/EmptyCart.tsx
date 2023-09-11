@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import imageEmpty from "../../assets/kettle-desaturated._CB424694188_.svg";
+import Link from "next/link";
 const EmptyCart = () => {
   return (
     <div className="flex flex-col justify-center items-center">
@@ -11,7 +12,7 @@ const EmptyCart = () => {
             Your Amazon Cart is empty
           </h2>
           <p className="mb-[1rem] font-[600] text-[0.9rem] text-[#486c72]">
-            Shop today's deals
+            <Link href="../">Shop todays deals</Link>
           </p>
           <div className="flex gap-2">
             <button className="py-[0.2rem] px-[0.6rem] bg-amazon_yellow_light rounded-xl font-[400]">Sign in to your account</button>
@@ -22,8 +23,8 @@ const EmptyCart = () => {
       <p className="w-[80rem] text-[0.8rem] my-[2rem] ">
         The price and availability of items at Amazon.com.au are subject to
         change. The Shopping Cart is a temporary place to store a list of your
-        items and reflects each item's most recent price.<br/> Do you have a
-        promotional code? We'll ask you to enter your claim code when it's time
+        items and reflects each items most recent price.<br/> Do you have a
+        promotional code? Well ask you to enter your claim code when its time
         to pay.
       </p>
       </div>

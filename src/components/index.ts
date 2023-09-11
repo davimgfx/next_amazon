@@ -6,4 +6,5 @@ import CarouselBanner from "./CarouselBanner/CarouselBanner"
 import Products from "./Products/Products"
 import EmptyCart from "./EmptyCart/EmptyCart";
 import WithItemsCart from "./WithItemsCart/WithItemsCart";
-export { Header, Footer, BottomHeader, R_Layout, CarouselBanner, Products, EmptyCart, WithItemsCart }
+import CartPayment from "./CartPayment/CartPayment";
+export { Header, Footer, BottomHeader, R_Layout, CarouselBanner, Products, EmptyCart, WithItemsCart, CartPayment  }
