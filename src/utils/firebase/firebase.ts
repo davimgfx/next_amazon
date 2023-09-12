@@ -36,6 +36,9 @@ export const loginAuthUserWithEmailAndPassword = async (email: string, password:
     return await signInWithEmailAndPassword(auth, email, password);
 }
 
-export const updateAuthProfile = async (username : string) => {
-    return await updateProfile(auth.currentUser, { displayName: username });
+export const updateAuthProfile = async (username: string) => {
+    const user = auth.currentUser;
+    if (user) {
+        return await updateProfile(user, { displayName: username });
+    } 
 }

@@ -5,34 +5,36 @@ import SearchBar from "../SearchBar/SearchBar";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { StateProps } from "@/types/types";
-import {useEffect} from "react"
-import { auth } from "@/utils/firebase/firebase"
+import { useEffect } from "react";
+import { auth } from "@/utils/firebase/firebase";
 import { loginUser, setLoading } from "@/store/nextSlice";
 
 const Header = () => {
-  const { productData, favoriteData, user } = useSelector(
+  const { productData, favoriteData, user, isLoading } = useSelector(
     (state: StateProps) => state.next
   );
   const dispatch = useDispatch();
 
-    useEffect(( ) => (
+  useEffect(
+    () =>
       auth.onAuthStateChanged((authUser) => {
-        if(authUser){
+        if (authUser) {
           dispatch(
             loginUser({
               uid: authUser.uid,
               username: authUser.displayName,
-              email: authUser.email
+              email: authUser.email,
             })
-          )
-          dispatch(setLoading(false))
+          );
+          dispatch(setLoading(false));
         } else {
-          console.log("User not logged")
+          console.log("User not logged");
         }
-      })
-    ), [])
+      }),
+    []
+  );
 
-  console.log(user)
+  console.log(user);
   const customBorderClasses =
     "border border-transparent hover:border-white p-2 h-[3rem] flex flex-col justify-center";
   const customBorderClassesCart =
@@ -53,11 +55,18 @@ const Header = () => {
         <h2>Select your address</h2>
       </div>
       <SearchBar />
-
-      <Link className={`${customBorderClasses} w-[12rem]`} href={"../login"}>
-        <span className="font-[400]">Hello, sign in</span>
-        <h2>Account & Lists</h2>
-      </Link>
+      
+      {isLoading ? (
+        <Link className={`${customBorderClasses} w-[12rem]`} href={"../login"}>
+          <span className="font-[400]">Hello, sign in</span>
+          <h2>Account & Lists</h2>
+        </Link>
+      ) : (
+        <Link className={`${customBorderClasses} w-[12rem]`} href={"../cart"}>
+          <span className="font-[400]">Hello, {user?.username}</span>
+          <h2>Account & Lists</h2>
+        </Link>
+      )}
 
       <div className={`${customBorderClasses} w-[8rem] relative`}>
         <span className="font-[400]">Returns</span>

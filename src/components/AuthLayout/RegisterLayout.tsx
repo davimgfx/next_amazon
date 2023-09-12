@@ -1,12 +1,14 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { FormInput } from "@/components";
 import {
   createAuthUserWithEmailAndPassword,
   loginAuthUserWithEmailAndPassword,
   updateAuthProfile,
 } from "@/utils/firebase/firebase";
+import { FormFields } from "@/types/types";
 
 const RegisterLayout = () => {
+  
   const defaultFormFields = {
     email: "",
     password: "",
@@ -14,16 +16,9 @@ const RegisterLayout = () => {
     username: "",
   };
 
-  interface FormFields {
-    email: string;
-    password: string;
-    confirmPassword: string;
-    username: string;
-  }
-
   const [formFields, setFormFields] = useState<FormFields>(defaultFormFields);
   const { email, password, confirmPassword, username } = formFields;
- 
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
   
@@ -43,16 +38,19 @@ const RegisterLayout = () => {
       await loginAuthUserWithEmailAndPassword(email, password);
 
       await updateAuthProfile(username);
+     
   } catch (error) {
       console.error("Error:", error);
     }
   };
 
+ 
+
   return (
     <form
       onSubmit={handleRegisterUser}
       className="flex justify-center items-center my-20 flex-col">
-          <FormInput
+        <FormInput
         label="Your name"
         type="text"
         required

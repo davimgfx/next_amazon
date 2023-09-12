@@ -30,3 +30,11 @@ export interface StateProps {
   user: null | string;
   next: any;
 }
+
+
+export interface FormFields {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  username: string;
+}
