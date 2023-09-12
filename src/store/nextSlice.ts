@@ -5,14 +5,16 @@ interface NextState {
   productData: StoreProduct[];
   favoriteData: StoreProduct[];
   allProducts: StoreProduct[];
-  userInfo: null | string;
+  user: null | string,
+  isLoading: boolean
 }
 
 const initialState: NextState = {
   productData: [],
   favoriteData: [],
   allProducts: [],
-  userInfo: null,
+  user: null,
+  isLoading: true,
 };
 
 export const nextSlice = createSlice({
@@ -82,18 +84,22 @@ export const nextSlice = createSlice({
       state.productData = [];
     },
 
-    // Add User
-    addUser: (state, action) => {
-      state.userInfo = action.payload;
-    },
-
-    // Remove User
-    removeUser: (state) => {
-      state.userInfo = null;
-    },
-
+    // Set Product
     setAllProducts: (state, action) => {
       state.allProducts = action.payload;
+    },
+    // Login User
+    loginUser: (state, action) => {
+      state.user = action.payload;
+    },
+
+    //Logout User
+    logOut: (state) => {
+      state.user = null;
+    },
+
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
 });
@@ -106,9 +112,10 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   resetTheCart,
-  addUser,
-  removeUser,
-  setAllProducts
+  setAllProducts,
+  loginUser,
+  logOut,
+  setLoading,
 } = nextSlice.actions;
 
 export default nextSlice.reducer;

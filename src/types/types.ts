@@ -27,6 +27,6 @@ export interface StoreProduct {
 export interface StateProps {
   productData: [];
   favoriteData: [];
-  userInfo: null | string;
+  user: null | string;
   next: any;
 }

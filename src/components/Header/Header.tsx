@@ -3,14 +3,36 @@ import cartIcon from "@/assets/cartIcon.png";
 import Image from "next/image";
 import SearchBar from "../SearchBar/SearchBar";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { StateProps } from "@/types/types";
+import {useEffect} from "react"
+import { auth } from "@/utils/firebase/firebase"
+import { loginUser, setLoading } from "@/store/nextSlice";
 
 const Header = () => {
-  const { productData, favoriteData } = useSelector(
+  const { productData, favoriteData, user } = useSelector(
     (state: StateProps) => state.next
   );
+  const dispatch = useDispatch();
 
+    useEffect(( ) => (
+      auth.onAuthStateChanged((authUser) => {
+        if(authUser){
+          dispatch(
+            loginUser({
+              uid: authUser.uid,
+              username: authUser.displayName,
+              email: authUser.email
+            })
+          )
+          dispatch(setLoading(false))
+        } else {
+          console.log("User not logged")
+        }
+      })
+    ), [])
+
+  console.log(user)
   const customBorderClasses =
     "border border-transparent hover:border-white p-2 h-[3rem] flex flex-col justify-center";
   const customBorderClassesCart =
@@ -32,10 +54,10 @@ const Header = () => {
       </div>
       <SearchBar />
 
-      <div className={`${customBorderClasses} w-[12rem]`}>
+      <Link className={`${customBorderClasses} w-[12rem]`} href={"../login"}>
         <span className="font-[400]">Hello, sign in</span>
         <h2>Account & Lists</h2>
-      </div>
+      </Link>
 
       <div className={`${customBorderClasses} w-[8rem] relative`}>
         <span className="font-[400]">Returns</span>

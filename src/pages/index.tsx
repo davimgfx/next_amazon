@@ -5,8 +5,16 @@ interface Props {
   productData: ProductProps[]
 }
 
+export const getServerSideProps = async () =>{
+  const response = await fetch("https://fakestoreapiserver.reactbd.com/tech");
+  const productData = await response.json();
+  return { props: {productData} };
+
+}
+
 export default function Home({productData} : Props) {
-  return (
+
+  return (  
     <section id="home" className="max-w-screen-2xl mx-auto">
       <CarouselBanner />
       <Products productData={productData} />
@@ -14,9 +22,3 @@ export default function Home({productData} : Props) {
   );
 }
 
-export const getServerSideProps = async () =>{
-  const response = await fetch("https://fakestoreapiserver.reactbd.com/tech");
-  const productData = await response.json();
-  return { props: {productData} };
-
-}
