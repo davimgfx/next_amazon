@@ -32,9 +32,11 @@ const EmptyCart = () => {
                 <Link href="../">Shop todays deals</Link>
               </p>
               <div className="flex gap-2">
-                <button className="py-[0.2rem] px-[0.6rem] bg-amazon_yellow_light rounded-xl font-[400]">
-                  Sign in to your account
-                </button>
+                <Link href="../login">
+                  <button className="py-[0.2rem] px-[0.6rem] bg-amazon_yellow_light rounded-xl font-[400]">
+                    Sign in to your account
+                  </button>
+                </Link>
                 <button className="py-[0.2rem] px-[0.6rem] border border-2 rounded-xl font-[400]">
                   Sign up now
                 </button>

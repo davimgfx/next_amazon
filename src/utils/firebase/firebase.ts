@@ -4,7 +4,9 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    updateProfile
+    updateProfile,
+    signOut, 
+   
 } from "firebase/auth"
 
 const firebaseConfig = {
@@ -36,9 +38,15 @@ export const loginAuthUserWithEmailAndPassword = async (email: string, password:
     return await signInWithEmailAndPassword(auth, email, password);
 }
 
+// Update the username name
 export const updateAuthProfile = async (username: string) => {
     const user = auth.currentUser;
     if (user) {
         return await updateProfile(user, { displayName: username });
     } 
+}
+
+// Logout
+export const signOutAuth = async () => {
+    return signOut(auth)
 }

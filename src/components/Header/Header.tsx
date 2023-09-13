@@ -6,9 +6,9 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { StateProps } from "@/types/types";
 import { useEffect } from "react";
-import { auth } from "@/utils/firebase/firebase";
-import { loginUser, setLoading } from "@/store/nextSlice";
-
+import { auth, signOutAuth } from "@/utils/firebase/firebase";
+import { loginUser, setLoading, logOutUser } from "@/store/nextSlice";
+import { BsFillCaretDownFill } from "react-icons/bs";
 const Header = () => {
   const { productData, favoriteData, user, isLoading } = useSelector(
     (state: StateProps) => state.next
@@ -34,7 +34,12 @@ const Header = () => {
     []
   );
 
-  console.log(user);
+  const handleLogout = () => {
+    dispatch(logOutUser());
+    signOutAuth();
+    dispatch(setLoading(true));
+  };
+
   const customBorderClasses =
     "border border-transparent hover:border-white p-2 h-[3rem] flex flex-col justify-center";
   const customBorderClassesCart =
@@ -55,17 +60,52 @@ const Header = () => {
         <h2>Select your address</h2>
       </div>
       <SearchBar />
-      
+
       {isLoading ? (
-        <Link className={`${customBorderClasses} w-[12rem]`} href={"../login"}>
+        <Link
+          className={`${customBorderClasses} w-[12.5rem]`}
+          href={"../login"}>
           <span className="font-[400]">Hello, sign in</span>
-          <h2>Account & Lists</h2>
+          <div className="flex items-center gap-1 relative">
+            <h2>Account & Lists</h2>
+            <BsFillCaretDownFill className="text-[#5D6269] translate-y-1" />
+            <div className="absolute w-[30rem] h-[20rem] top-8 left-[-10rem] bg-white text-black p-5 z-99">
+              <div className="flex justify-center items-center flex-col">
+                <button className="py-[0.4rem] px-[0.6rem] w-[15rem] bg-amazon_yellow_light rounded-xl font-[400]">
+                  Sign In
+                </button>
+                <p className="font-[300] text-[0.7rem] text-[#5D6269] mt-1">
+                  New customer ?{" "}
+                  <Link
+                    href={"/register"}
+                    className="font-amazon_blue_more_light">
+                    Start here.
+                  </Link>
+                </p>
+                <div className="my-[0.2rem] w-[30rem]  h-[0.04rem] bg-[#d5d6d6]" />
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  <h2>Your List</h2>
+                </div>
+
+                <div>
+                  <h2>Your Account</h2>
+                </div>
+              </div>
+            </div>
+          </div>
         </Link>
       ) : (
-        <Link className={`${customBorderClasses} w-[12rem]`} href={"../cart"}>
-          <span className="font-[400]">Hello, {user?.username}</span>
-          <h2>Account & Lists</h2>
-        </Link>
+        <>
+          <Link className={`${customBorderClasses} w-[12rem]`} href={"../cart"}>
+            <span className="font-[400]">Hello, {user?.username}</span>
+            <h2>Account & Lists</h2>
+            <BsFillCaretDownFill />
+          </Link>
+
+          <button onClick={handleLogout}>Log out</button>
+        </>
       )}
 
       <div className={`${customBorderClasses} w-[8rem] relative`}>

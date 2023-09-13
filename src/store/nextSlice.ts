@@ -94,7 +94,7 @@ export const nextSlice = createSlice({
     },
 
     //Logout User
-    logOut: (state) => {
+    logOutUser: (state) => {
       state.user = null;
     },
 
@@ -114,7 +114,7 @@ export const {
   resetTheCart,
   setAllProducts,
   loginUser,
-  logOut,
+  logOutUser,
   setLoading,
 } = nextSlice.actions;
 
