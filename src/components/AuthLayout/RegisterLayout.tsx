@@ -8,7 +8,6 @@ import {
 import { FormFields } from "@/types/types";
 
 const RegisterLayout = () => {
-  
   const defaultFormFields = {
     email: "",
     password: "",
@@ -21,7 +20,7 @@ const RegisterLayout = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-  
+
     setFormFields({ ...formFields, [name]: value });
   };
 
@@ -38,28 +37,30 @@ const RegisterLayout = () => {
       await loginAuthUserWithEmailAndPassword(email, password);
 
       await updateAuthProfile(username);
-     
-  } catch (error) {
+
+      window.location.href = "./";
+
+      console.log("Account created sucessfully");
+    } catch (error) {
       console.error("Error:", error);
     }
   };
 
- 
-
   return (
     <form
       onSubmit={handleRegisterUser}
-      className="flex justify-center items-center my-20 flex-col">
-        <FormInput
+      className="flex flex-start flex-col gap-2 mt-5">
+      <FormInput
         label="Your name"
         type="text"
         required
         name="username"
         value={username}
         onChange={handleChange}
+        placeholder="First name"
       />
       <FormInput
-        label="email"
+        label="Email"
         type="email"
         required
         name="email"
@@ -67,22 +68,28 @@ const RegisterLayout = () => {
         onChange={handleChange}
       />
       <FormInput
-        label="password"
+        label="Password"
         type="password"
         required
         name="password"
         value={password}
         onChange={handleChange}
+        placeholder="At least 6 characters"
+        password={true}
       />
       <FormInput
-        label="Confirm password"
+        label="Re-enter password"
         type="password"
         required
         name="confirmPassword"
         value={confirmPassword}
         onChange={handleChange}
       />
-      <button type="submit">Register</button>
+      <button
+        type="submit"
+        className="py-[0.2rem] px-[0.6rem] w-auto my-2 bg-amazon_yellow_light rounded-xl font-[400]">
+        Register
+      </button>
     </form>
   );
 };

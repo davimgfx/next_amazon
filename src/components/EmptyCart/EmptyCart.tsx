@@ -1,9 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import imageEmpty from "../../assets/kettle-desaturated._CB424694188_.svg";
-import Link from "next/link";
+
 import { useSelector, useDispatch } from "react-redux";
 import { StateProps } from "@/types/types";
+import Link from "next/link";
 const EmptyCart = () => {
   const { isLoading } = useSelector((state: StateProps) => state.next);
   const dispatch = useDispatch();
@@ -12,17 +13,7 @@ const EmptyCart = () => {
     <div className="flex flex-col justify-center items-center">
       {isLoading ? (
         <>
-          <h2>Your Amazon shopping cart is empty.</h2>
-          <p>
-            Your shopping cart is here to serve you. Give it a purpose — fill it
-            with food, clothing, household items, electronics, and more.
-            Continue shopping on the Amazon.com.br homepage, learn more about
-            Daily Deals, or access your Wishlist.
-          </p>
-        </>
-      ) : (
-        <>
-          <div className="flex gap-[2rem] bg-white p-[2rem] mt-[2rem] w-[80rem] mx-auto">
+          <div className="flex gap-[2rem] bg-white p-[2rem] w-[80rem] mx-auto">
             <Image src={imageEmpty} alt="empty-cart" className="w-[20rem]" />
             <div>
               <h2 className="text-[1.5rem] font-[600]">
@@ -37,9 +28,11 @@ const EmptyCart = () => {
                     Sign in to your account
                   </button>
                 </Link>
-                <button className="py-[0.2rem] px-[0.6rem] border border-2 rounded-xl font-[400]">
-                  Sign up now
-                </button>
+                <Link href="../register">
+                  <button className="py-[0.2rem] px-[0.6rem] border border-2 rounded-xl font-[400]">
+                    Sign up now
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -51,6 +44,18 @@ const EmptyCart = () => {
             claim code when its time to pay.
           </p>
         </>
+      ) : (
+        <div className="flex gap-1 bg-white p-[2rem] w-[80rem] mx-auto flex-col">
+          <h2 className="text-[1.6rem] font-[500] tracking-tight">
+            Your Amazon shopping cart is empty.
+          </h2>
+          <p>
+            Your shopping cart is here to serve you. Give it a purpose — fill it
+            with food, clothing, household items, electronics, and more.
+            Continue shopping on the <Link href="../" className="text-[#486c72] ">Amazon.com homepage</Link>, learn
+            more about Daily Deals, or access your <Link href="../wishlist">Wishlist</Link>.
+          </p>
+        </div>
       )}
     </div>
   );

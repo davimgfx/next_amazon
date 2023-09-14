@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { auth, signOutAuth } from "@/utils/firebase/firebase";
 import { loginUser, setLoading, logOutUser } from "@/store/nextSlice";
 import { BsFillCaretDownFill } from "react-icons/bs";
+import { IoLocationOutline } from "react-icons/io5";
+
 const Header = () => {
   const { productData, favoriteData, user, isLoading } = useSelector(
     (state: StateProps) => state.next
@@ -55,9 +57,12 @@ const Header = () => {
         />
       </Link>
 
-      <div className={`${customBorderClasses} w-[13rem]`}>
-        <span className="font-[400]"> Hello</span>
-        <h2>Select your address</h2>
+      <div className={`${customBorderClasses} w-[15rem] relative`}>
+        <IoLocationOutline className="text-white text-[1.5rem] absolute top-5 left-0"/>
+        <div className="absolute left-6">
+          <span className="font-[400]"> Hello</span>
+          <h2>Select your address</h2>
+        </div>
       </div>
       <SearchBar />
 
@@ -69,7 +74,7 @@ const Header = () => {
           <div className="flex items-center gap-1 relative">
             <h2>Account & Lists</h2>
             <BsFillCaretDownFill className="text-[#5D6269] translate-y-1" />
-            <div className="absolute w-[30rem] h-[20rem] top-8 left-[-10rem] bg-white text-black p-5 z-99">
+            {/* <div className="absolute w-[30rem] h-[20rem] top-8 left-[-10rem] bg-white text-black p-5 z-99">
               <div className="flex justify-center items-center flex-col">
                 <button className="py-[0.4rem] px-[0.6rem] w-[15rem] bg-amazon_yellow_light rounded-xl font-[400]">
                   Sign In
@@ -93,7 +98,7 @@ const Header = () => {
                   <h2>Your Account</h2>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </Link>
       ) : (

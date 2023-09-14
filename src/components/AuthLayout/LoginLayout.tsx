@@ -22,6 +22,7 @@ const LoginLayout = () => {
 
     try {
       await loginAuthUserWithEmailAndPassword(email, password);
+      window.location.href = "./";
       console.log("Logado")
     } catch (error) {
       console.log("error")
@@ -38,9 +39,9 @@ const LoginLayout = () => {
   };
 
   return (
-        <form className="flex justify-center items-center my-20 flex-col" onSubmit={handleSubmit}>
+        <form className="flex flex-start flex-col gap-2 mt-5" onSubmit={handleSubmit}>
           <FormInput
-            label="email"
+            label="Email"
             type="email"
             required
             name="email"
@@ -48,14 +49,14 @@ const LoginLayout = () => {
             onChange={handleChange}
           />
           <FormInput
-            label="password"
+            label="Password"
             type="password"
             required
             name="password"
             value={password}
             onChange={handleChange}
           />
-          <button type="submit">Login</button>
+          <button type="submit" className="py-[0.2rem] px-[0.6rem] w-auto my-2 bg-amazon_yellow_light rounded-xl font-[400]">Login</button>
         </form>
        
    
