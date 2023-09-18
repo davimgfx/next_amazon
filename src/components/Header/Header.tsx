@@ -5,7 +5,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { StateProps } from "@/types/types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { auth, signOutAuth, getProductsInRealTime } from "@/utils/firebase/firebase";
 import { loginUser, setLoading, logOutUser } from "@/store/nextSlice";
 import { BsFillCaretDownFill } from "react-icons/bs";
@@ -17,11 +17,6 @@ const Header = () => {
   );
 
   const dispatch = useDispatch();
-
-    if(user){
-      const quantityOfAllProducts = getProductsInRealTime(user.uid)
-    
-    }
   
 
   

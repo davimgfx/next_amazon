@@ -65,8 +65,9 @@ export const signOutAuth = async () => {
 
 // Database session
 
-const db = getFirestore();
+export const db = getFirestore();
 
+//Add products to the database
 export const addToShoppingCartList = async (
   user_uid: string,
   product: ProductProps
@@ -83,7 +84,6 @@ export const addToShoppingCartList = async (
       if (updatedCart.products && updatedCart.products[product._id]) {
         updatedCart.products[product._id].quantity += 1;
       } else {
-        // Se não estiver, adicione um novo item ao carrinho
         updatedCart.products[product._id] = {
           brand: product.brand,
           category: product.category,
@@ -93,8 +93,8 @@ export const addToShoppingCartList = async (
           oldPrice: product.oldPrice,
           price: product.price,
           title: product.title,
+          _id: product._id,
           quantity: 1,
-          // Outras propriedades do produto
         };
       }
 
@@ -105,6 +105,7 @@ export const addToShoppingCartList = async (
       const newCart = {
         products: {
           [product._id]: {
+            _id: product._id,
             brand: product.brand,
             category: product.category,
             description: product.description,
@@ -124,12 +125,46 @@ export const addToShoppingCartList = async (
   }
 };
 
-export const getProductsInRealTime = async (user_uid: string) => {
-  onSnapshot(doc(db, "shoppingCart", user_uid), (cart) => {
-    if (cart.exists()) {
-      console.log(cart.data().products);
-    } else {
-      console.log("Empty cart");
+// Remove the products
+export const removeProductFromShoppingCart = async (
+  user_uid: string,
+  product_id: string
+) => {
+  
+  const shoppingCartRef = doc(db, "shoppingCart", user_uid);
+
+  try {
+    const cartSnapshot = await getDoc(shoppingCartRef);
+    if (cartSnapshot.exists()) {
+      const cartData = cartSnapshot.data();
+      const updatedCart = { ...cartData };
+
+      // Verifique se o produto está no carrinho
+      if (updatedCart.products && updatedCart.products[product_id]) {
+        const product = updatedCart.products[product_id];
+
+        delete updatedCart.products[product_id];
+
+        // Atualize o carrinho no Firebase
+        await setDoc(shoppingCartRef, updatedCart);
+      }
     }
-  });
+  } catch (error) {
+    console.error(error);
+  }
 };
+
+// Get the products
+
+// export const getProductsInRealTime = async (user_uid: string) => {
+//   onSnapshot(doc(db, "shoppingCart", user_uid), (cart) => {
+//     if (cart.exists()) {
+//       const productsData = cart.data().products;
+//       const productKeys = Object.values(productsData);
+//       return productKeys
+
+//     } else {
+//       console.log("Empty cart");
+//     }
+//   });
+// };

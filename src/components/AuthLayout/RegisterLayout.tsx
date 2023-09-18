@@ -76,6 +76,7 @@ const RegisterLayout = () => {
         onChange={handleChange}
         placeholder="At least 6 characters"
         password={true}
+        minLength={6}
       />
       <FormInput
         label="Re-enter password"
@@ -84,6 +85,7 @@ const RegisterLayout = () => {
         name="confirmPassword"
         value={confirmPassword}
         onChange={handleChange}
+        minLength={6}
       />
       <button
         type="submit"

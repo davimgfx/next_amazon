@@ -55,6 +55,7 @@ const LoginLayout = () => {
             name="password"
             value={password}
             onChange={handleChange}
+            minLength={6}
           />
           <button type="submit" className="py-[0.2rem] px-[0.6rem] w-auto my-2 bg-amazon_yellow_light rounded-xl font-[400]">Login</button>
         </form>

@@ -8,6 +8,7 @@ interface FormProps {
   value: string;
   placeholder?: string;
   password?: boolean;
+  minLength?: number,
   onChange: (event: any) => void;
 }
 
