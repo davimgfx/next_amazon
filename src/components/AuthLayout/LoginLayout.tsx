@@ -16,7 +16,7 @@ const LoginLayout = () => {
   const handleSubmit = async (event : any) => {
     event.preventDefault();
     if (!password || !email) {
-     console.log("wrond")
+     console.log("wrong")
       return;
     }
 

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { StateProps } from "@/types/types";
 import { useEffect } from "react";
-import { auth, signOutAuth } from "@/utils/firebase/firebase";
+import { auth, signOutAuth, getProductsInRealTime } from "@/utils/firebase/firebase";
 import { loginUser, setLoading, logOutUser } from "@/store/nextSlice";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
@@ -15,7 +15,16 @@ const Header = () => {
   const { productData, favoriteData, user, isLoading } = useSelector(
     (state: StateProps) => state.next
   );
+
   const dispatch = useDispatch();
+
+    if(user){
+      const quantityOfAllProducts = getProductsInRealTime(user.uid)
+    
+    }
+  
+
+  
 
   useEffect(
     () =>
@@ -42,6 +51,7 @@ const Header = () => {
     dispatch(setLoading(true));
   };
 
+ 
   const customBorderClasses =
     "border border-transparent hover:border-white p-2 h-[3rem] flex flex-col justify-center";
   const customBorderClassesCart =
