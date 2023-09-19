@@ -170,3 +170,54 @@ export const resetProductFromShoppingCart = async (user_uid: string) => {
   await deleteDoc(doc(db, "shoppingCart", user_uid));
 
 };
+
+// Increase 
+// Increase the quantity of a product in the shopping cart
+export const increaseQuantityFromShoppingCart = async (
+  user_uid: string,
+  product_id: string
+) => {
+  const shoppingCartRef = doc(db, "shoppingCart", user_uid);
+
+  try {
+    const cartSnapshot = await getDoc(shoppingCartRef);
+    if (cartSnapshot.exists()) {
+      const cartData = cartSnapshot.data();
+      const updatedCart = { ...cartData };
+
+      if (updatedCart.products && updatedCart.products[product_id]) {
+        updatedCart.products[product_id].quantity += 1; // Increase quantity
+        await setDoc(shoppingCartRef, updatedCart);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Decrease the quantity of a product in the shopping cart
+export const decreaseQuantityFromShoppingCart = async (
+  user_uid: string,
+  product_id: string
+) => {
+  const shoppingCartRef = doc(db, "shoppingCart", user_uid);
+
+  try {
+    const cartSnapshot = await getDoc(shoppingCartRef);
+    if (cartSnapshot.exists()) {
+      const cartData = cartSnapshot.data();
+      const updatedCart = { ...cartData };
+
+      if (updatedCart.products && updatedCart.products[product_id]) {
+        // Decrease quantity and remove the product if it's less than or equal to 0
+        if (updatedCart.products[product_id].quantity > 1) {
+          updatedCart.products[product_id].quantity -= 1;
+        }
+
+        await setDoc(shoppingCartRef, updatedCart);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

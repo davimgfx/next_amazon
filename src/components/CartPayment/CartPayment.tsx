@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { StateProps, StoreProduct } from "@/types/types";
+import { ProductsContext } from "@/context/ProductsContext";
 const CartPayment = () => {
-  const { productData } = useSelector((state: StateProps) => state.next);
+  const { productData, user } = useSelector((state: StateProps) => state.next);
+  const { userCartProducts } = useContext(ProductsContext);
 
-  const handleCalcTotal = (): number => {
-    const arrayTotal = productData.map(
+  const handleCalcTotal = (array): number => {
+    const arrayTotal = array.map(
       (product: StoreProduct) => product.price * product.quantity
     );
     return arrayTotal
@@ -14,8 +16,8 @@ const CartPayment = () => {
       .toFixed(2);
   };
 
-  const handleCalcQuantity = (): number => {
-    return productData.reduce(
+  const handleCalcQuantity = (array): number => {
+    return array.reduce(
       (totalQuantity: number, product: StoreProduct) =>
         totalQuantity + product.quantity,
       0
@@ -33,11 +35,9 @@ const CartPayment = () => {
           </p>
         </div>
         <h2 className="text-[1.2rem] font-[400]">
-          Subtotal ({handleCalcQuantity()}{" "}
-          {handleCalcQuantity() === 1 ? "item" : "items"}
-          {" "}):{" "}
+          Subtotal ({user ? handleCalcQuantity(userCartProducts) : handleCalcQuantity(productData)}{" "}items{" "}):{" "}
           <span className="text-[1.3rem] font-[600]">
-            ${handleCalcTotal()}{" "}
+            ${user ? handleCalcTotal(userCartProducts) : handleCalcTotal(productData)}
           </span>
         </h2>
 

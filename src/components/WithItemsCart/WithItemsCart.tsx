@@ -10,7 +10,7 @@ import {
 import { StateProps, ProductProps, StoreProduct } from "@/types/types";
 import { CartPayment } from "@/components";
 import ResetCartButton from "../ResetCartButton/ResetCartButton";
-import { removeProductFromShoppingCart } from "@/utils/firebase/firebase";
+import { removeProductFromShoppingCart, increaseQuantityFromShoppingCart, decreaseQuantityFromShoppingCart  } from "@/utils/firebase/firebase";
 import { ProductsContext } from "@/context/ProductsContext";
 
 const WithItemsCart = () => {
@@ -35,7 +35,17 @@ const WithItemsCart = () => {
     }
   };
 
-  const handleCalcTotal = (): number => {
+  const handleCalcTotalWithoutUser = (): number => {
+    const arrayTotal = userCartProducts.map(
+      (product: StoreProduct) => product.price * product.quantity
+    );
+    console.log(arrayTotal)
+    return arrayTotal
+      .reduce((sum: number, number: number) => sum + number, 0)
+      .toFixed(2);
+  };
+
+  const handleCalcTotalWithUser = (): number => {
     const arrayTotal = productData.map(
       (product: StoreProduct) => product.price * product.quantity
     );
@@ -73,11 +83,13 @@ const WithItemsCart = () => {
                       <p className="text-[1rem]">{product.description}</p>
                       <div className="mt-1 font-[600] text-[0.9rem] text-[#486c72] flex gap-2">
                         <div className="flex items-center gap-2">
-                          <div className="cursor-pointer">
+                          <div className="cursor-pointer" onClick={() => decreaseQuantityFromShoppingCart(user.uid,
+                              product._id)}>
                             <LuMinus />
                           </div>
                           <span>{product.quantity}</span>
-                          <div className="cursor-pointer">
+                          <div className="cursor-pointer" onClick={() => increaseQuantityFromShoppingCart(user.uid,
+                              product._id)}>
                             <LuPlus />
                           </div>
                         </div>
@@ -165,7 +177,7 @@ const WithItemsCart = () => {
         <div className="flex justify-between items-center mt-4 mx-2">
           <ResetCartButton />
           <p className="text-[1.3rem] font-[600]">
-            Total: $ {handleCalcTotal()}
+            Total: $ { user ? handleCalcTotalWithoutUser() : handleCalcTotalWithoutUser()}
           </p>
         </div>
       </div>
