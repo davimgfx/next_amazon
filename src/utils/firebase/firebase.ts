@@ -5,6 +5,10 @@ import {
   setDoc,
   onSnapshot,
   getDoc,
+  deleteDoc,
+  updateDoc,
+  deleteField,
+  arrayRemove,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -14,6 +18,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { ProductProps } from "@/types/types";
+import { resetTheCart } from "@/store/nextSlice";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZ-vjhiTBkGqcp0OIdvMW483RbT8N0xVw",
@@ -68,6 +73,7 @@ export const signOutAuth = async () => {
 export const db = getFirestore();
 
 //Add products to the database
+// * fix this and reset
 export const addToShoppingCartList = async (
   user_uid: string,
   product: ProductProps
@@ -76,9 +82,11 @@ export const addToShoppingCartList = async (
 
   try {
     const cartSnapshot = await getDoc(shoppingCartRef);
+    let updatedCart; // Declare a variable to hold the updated cart data
+
     if (cartSnapshot.exists()) {
       const cartData = cartSnapshot.data();
-      const updatedCart = { ...cartData };
+      updatedCart = { ...cartData };
 
       // Verifique se o produto já está no carrinho
       if (updatedCart.products && updatedCart.products[product._id]) {
@@ -97,12 +105,9 @@ export const addToShoppingCartList = async (
           quantity: 1,
         };
       }
-
-      // Atualize o carrinho no Firebase
-      await setDoc(shoppingCartRef, updatedCart);
     } else {
       // Se o carrinho não existir, crie um novo com o item
-      const newCart = {
+      updatedCart = {
         products: {
           [product._id]: {
             _id: product._id,
@@ -118,12 +123,18 @@ export const addToShoppingCartList = async (
           },
         },
       };
-      await setDoc(shoppingCartRef, newCart);
+    }
+
+    // Verifique se updatedCart é definido antes de atualizar o carrinho
+    if (updatedCart) {
+      await setDoc(shoppingCartRef, updatedCart);
     }
   } catch (error) {
     console.error(error);
   }
 };
+
+
 
 // Remove the products
 export const removeProductFromShoppingCart = async (
@@ -139,14 +150,13 @@ export const removeProductFromShoppingCart = async (
       const cartData = cartSnapshot.data();
       const updatedCart = { ...cartData };
 
-      // Verifique se o produto está no carrinho
+    
       if (updatedCart.products && updatedCart.products[product_id]) {
-        const product = updatedCart.products[product_id];
 
         delete updatedCart.products[product_id];
 
-        // Atualize o carrinho no Firebase
         await setDoc(shoppingCartRef, updatedCart);
+
       }
     }
   } catch (error) {
@@ -154,17 +164,9 @@ export const removeProductFromShoppingCart = async (
   }
 };
 
-// Get the products
+// Reset the cart
+// * fix this and add
+export const resetProductFromShoppingCart = async (user_uid: string) => {
+  await deleteDoc(doc(db, "shoppingCart", user_uid));
 
-// export const getProductsInRealTime = async (user_uid: string) => {
-//   onSnapshot(doc(db, "shoppingCart", user_uid), (cart) => {
-//     if (cart.exists()) {
-//       const productsData = cart.data().products;
-//       const productKeys = Object.values(productsData);
-//       return productKeys
-
-//     } else {
-//       console.log("Empty cart");
-//     }
-//   });
-// };
+};

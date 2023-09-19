@@ -1,15 +1,19 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetTheCart } from "@/store/nextSlice";
+import { resetProductFromShoppingCart } from "@/utils/firebase/firebase"
+import { StateProps } from "@/types/types";
 
 const ResetCartButton = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state: StateProps) => state.next);
+
   const handleResetCart = () => {
     const confirmReset = window.confirm(
       "Are you sure you want to reset your cart?"
     );
     if (confirmReset) {
-      dispatch(resetTheCart());
+      user ?  resetProductFromShoppingCart(user.uid) : dispatch(resetTheCart())
     }
   };
 

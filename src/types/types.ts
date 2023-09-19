@@ -38,3 +38,4 @@ export interface FormFields {
   confirmPassword: string;
   username: string;
 }
+

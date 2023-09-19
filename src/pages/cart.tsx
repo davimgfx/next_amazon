@@ -10,7 +10,7 @@ const CartPage = () => {
 
   return (
     <section id="cart" className="bg-[#EAEDED] py-[2rem]">
-      {userCartProducts ||  productData.length > 0 ? <WithItemsCart /> : <EmptyCart />}
+      {userCartProducts.length > 0 ||  productData.length > 0 ? <WithItemsCart /> : <EmptyCart />}
      
     </section>
   );

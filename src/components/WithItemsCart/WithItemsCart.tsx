@@ -97,7 +97,7 @@ const WithItemsCart = () => {
                         <span className="text-[#cccccc8f]">|</span>
                         <span className="cursor-pointer">Share</span>
                       </div>
-                    </div>{" "}
+                    </div>
                     <div className="w-full flex justify-end">
                       <p className="text-[1.3rem] font-[600] ">
                         $ {(product.price * product.quantity).toFixed(2)}

@@ -5,11 +5,12 @@ import SearchBar from "../SearchBar/SearchBar";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { StateProps } from "@/types/types";
-import { useEffect, useState } from "react";
-import { auth, signOutAuth, getProductsInRealTime } from "@/utils/firebase/firebase";
+import { useContext, useEffect } from "react";
+import { auth, signOutAuth } from "@/utils/firebase/firebase";
 import { loginUser, setLoading, logOutUser } from "@/store/nextSlice";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
+import { ProductsContext } from "@/context/ProductsContext";
 
 const Header = () => {
   const { productData, favoriteData, user, isLoading } = useSelector(
@@ -17,9 +18,7 @@ const Header = () => {
   );
 
   const dispatch = useDispatch();
-  
-
-  
+  const { userCartProducts } = useContext(ProductsContext);
 
   useEffect(
     () =>
@@ -46,7 +45,6 @@ const Header = () => {
     dispatch(setLoading(true));
   };
 
- 
   const customBorderClasses =
     "border border-transparent hover:border-white p-2 h-[3rem] flex flex-col justify-center";
   const customBorderClassesCart =
@@ -63,7 +61,7 @@ const Header = () => {
       </Link>
 
       <div className={`${customBorderClasses} w-[15rem] relative`}>
-        <IoLocationOutline className="text-white text-[1.5rem] absolute top-5 left-0"/>
+        <IoLocationOutline className="text-white text-[1.5rem] absolute top-5 left-0" />
         <div className="absolute left-6">
           <span className="font-[400]"> Hello</span>
           <h2>Select your address</h2>
@@ -133,7 +131,7 @@ const Header = () => {
         href={"/cart"}>
         <Image src={cartIcon} alt="logo_amazon" className="w-8" />
         <span className="absolute translate-x-[-1.01rem] translate-y-[-0.6rem] z-50 text-amazon_yellow font-[600] text-[1.2rem]">
-          {productData ? productData.length : 0}
+          {user ? userCartProducts.length : productData.length}
         </span>
         <h2 className="translate-y-[0.8rem] translate-x-1.5">Basket</h2>
       </Link>
