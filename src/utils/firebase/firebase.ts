@@ -134,14 +134,11 @@ export const addToShoppingCartList = async (
   }
 };
 
-
-
 // Remove the products
 export const removeProductFromShoppingCart = async (
   user_uid: string,
-  product_id: string
+  product_id: number
 ) => {
-  
   const shoppingCartRef = doc(db, "shoppingCart", user_uid);
 
   try {
@@ -150,13 +147,10 @@ export const removeProductFromShoppingCart = async (
       const cartData = cartSnapshot.data();
       const updatedCart = { ...cartData };
 
-    
       if (updatedCart.products && updatedCart.products[product_id]) {
-
         delete updatedCart.products[product_id];
 
         await setDoc(shoppingCartRef, updatedCart);
-
       }
     }
   } catch (error) {
@@ -168,14 +162,13 @@ export const removeProductFromShoppingCart = async (
 // * fix this and add
 export const resetProductFromShoppingCart = async (user_uid: string) => {
   await deleteDoc(doc(db, "shoppingCart", user_uid));
-
 };
 
-// Increase 
+// Increase
 // Increase the quantity of a product in the shopping cart
 export const increaseQuantityFromShoppingCart = async (
   user_uid: string,
-  product_id: string
+  product_id: number
 ) => {
   const shoppingCartRef = doc(db, "shoppingCart", user_uid);
 
@@ -198,7 +191,7 @@ export const increaseQuantityFromShoppingCart = async (
 // Decrease the quantity of a product in the shopping cart
 export const decreaseQuantityFromShoppingCart = async (
   user_uid: string,
-  product_id: string
+  product_id: number
 ) => {
   const shoppingCartRef = doc(db, "shoppingCart", user_uid);
 

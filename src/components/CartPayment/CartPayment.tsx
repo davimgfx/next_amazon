@@ -7,7 +7,7 @@ const CartPayment = () => {
   const { productData, user } = useSelector((state: StateProps) => state.next);
   const { userCartProducts } = useContext(ProductsContext);
 
-  const handleCalcTotal = (array): number => {
+  const handleCalcTotal = (array : StoreProduct[]): string => {
     const arrayTotal = array.map(
       (product: StoreProduct) => product.price * product.quantity
     );
@@ -16,7 +16,7 @@ const CartPayment = () => {
       .toFixed(2);
   };
 
-  const handleCalcQuantity = (array): number => {
+  const handleCalcQuantity = (array : StoreProduct[]): number => {
     return array.reduce(
       (totalQuantity: number, product: StoreProduct) =>
         totalQuantity + product.quantity,

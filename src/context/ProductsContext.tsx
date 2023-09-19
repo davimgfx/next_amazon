@@ -3,13 +3,13 @@ import { db } from "@/utils/firebase/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { StateProps } from "@/types/types";
-import { StoreProduct } from "@/types/types";
+import { StoreProduct, ProductsContextType } from "@/types/types";
 
-export const ProductsContext = createContext([]);
+export const ProductsContext = createContext<StoreProduct[] | any >([]);
 
 export const ProductsProvider = ({ children }: any) => {
   const { user } = useSelector((state: StateProps) => state.next);
-  const [userCartProducts, setUserCartProducts] = useState([]);
+  const [userCartProducts, setUserCartProducts] = useState<StoreProduct[] | any>([]);
   const [unsubscribe, setUnsubscribe] = useState<(() => void) | null>(null); 
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export const ProductsProvider = ({ children }: any) => {
     };
   }, [user]);
 
-  const contextValue = {
+  const contextValue: ProductsContextType | unknown = {
     userCartProducts,
   };
   

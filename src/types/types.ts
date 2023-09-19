@@ -20,9 +20,12 @@ export interface StoreProduct {
   oldPrice: number;
   price: number;
   title: string;
-  _id: string;
+  _id: number ;
   quantity: number;
 }
+export type ProductsContextType = {
+  userCartProducts: StoreProduct[];
+};
 
 export interface StateProps {
   productData: [];
