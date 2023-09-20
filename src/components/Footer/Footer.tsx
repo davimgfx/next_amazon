@@ -25,7 +25,7 @@ const Footer = () => {
           <p className="cursor-pointer mb-1">Protect and build your brand</p>
           <p className="cursor-pointer my-1">Independently Publish with Us</p>
           <p className="cursor-pointer my-1">Sell on Amazon</p>
-          <p className="cursor-pointer my-1">Fulfilment by Amazon</p>
+          <p className="cursor-pointer my-1">Fulfillment by Amazon</p>
           <p className="cursor-pointer my-1">Drive with Amazon Flex</p>
           <p className="cursor-pointer my-1">Advertise Your Products</p>
           <p className="cursor-pointer my-1">Associates Program</p>
@@ -71,13 +71,13 @@ const Footer = () => {
         </ul>
       </div>
       <div className="w-full bg-amazon_blue_light items-center flex justify-center flex-col">
-        <h2>And don't forget:</h2>
+        <h2>And dont forget:</h2>
         <div>
           <ul className="flex gap-[0.6rem] justify-center items-center w-[70rem] flex-wrap mx-auto pb-3">
             <li className="cursor-pointer">Amazon Advertising</li>|
             <li className="cursor-pointer">Amazon Web Services</li>|
-            <li className="cursor-pointer">goodreads</li>|
-            <li className="cursor-pointer">Shopbop</li>
+            <li className="cursor-pointer">godheads</li>|
+            <li className="cursor-pointer">Shopboy</li>
           </ul>
         </div>
       </div>

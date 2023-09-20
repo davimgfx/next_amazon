@@ -29,7 +29,7 @@ const RegisterLayout = () => {
 
       window.location.href = "./";
 
-      console.log("Account created sucessfully");
+      console.log("Account created successfully");
     } catch (error) {
       console.error("Error:", error);
     }

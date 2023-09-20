@@ -29,7 +29,7 @@ const EmptyCart = () => {
                   </button>
                 </Link>
                 <Link href="../register">
-                  <button className="py-[0.2rem] px-[0.6rem] border border-2 rounded-xl font-[400]">
+                  <button className="py-[0.2rem] px-[0.6rem] border-2 rounded-xl font-[400]">
                     Sign up now
                   </button>
                 </Link>

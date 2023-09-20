@@ -3,12 +3,8 @@ import {
   doc,
   getFirestore,
   setDoc,
-  onSnapshot,
   getDoc,
   deleteDoc,
-  updateDoc,
-  deleteField,
-  arrayRemove,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -18,7 +14,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { ProductProps } from "@/types/types";
-import { resetTheCart } from "@/store/nextSlice";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZ-vjhiTBkGqcp0OIdvMW483RbT8N0xVw",
@@ -88,7 +84,7 @@ export const addToShoppingCartList = async (
       const cartData = cartSnapshot.data();
       updatedCart = { ...cartData };
 
-      // Verifique se o produto já está no carrinho
+  
       if (updatedCart.products && updatedCart.products[product._id]) {
         updatedCart.products[product._id].quantity += 1;
       } else {
@@ -106,7 +102,7 @@ export const addToShoppingCartList = async (
         };
       }
     } else {
-      // Se o carrinho não existir, crie um novo com o item
+    
       updatedCart = {
         products: {
           [product._id]: {
@@ -125,7 +121,6 @@ export const addToShoppingCartList = async (
       };
     }
 
-    // Verifique se updatedCart é definido antes de atualizar o carrinho
     if (updatedCart) {
       await setDoc(shoppingCartRef, updatedCart);
     }

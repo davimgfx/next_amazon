@@ -18,7 +18,7 @@ const LoginLayout = () => {
     try {
       await loginAuthUserWithEmailAndPassword(data.email, data.password);
       window.location.href = "./";
-      console.log("Logado");
+      console.log("Login");
     } catch (error) {
       console.log("error");
     }
