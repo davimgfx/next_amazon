@@ -1,32 +1,38 @@
 import React from "react";
+import {
+  UseFormRegisterReturn,
+  FieldErrors,
+  FieldValues,
+} from "react-hook-form";
 
 interface FormProps {
   label: string;
   type: string;
-  required: boolean;
-  name: string;
-  value: string;
   placeholder?: string;
+  errors?: FieldErrors<FieldValues> | undefined;
   password?: boolean;
-  minLength?: number,
-  onChange: (event: any) => void;
+  register: UseFormRegisterReturn<string>;
+  minLength?: number
 }
 
-const FormInput = ({ label, password = false, ...otherProps }: FormProps) => {
+const FormInput = ({
+  label,
+  password = false,
+  errors,
+  placeholder,
+  type,
+  ...otherProps
+}: FormProps) => {
   return (
     <div>
       <label className="font-[600] text-[0.8rem] leading-3">{label}</label>
       <input
         className="border-[#949494] border-[0.1rem] w-full indent-2 rounded-md h-7"
-        {...otherProps}
+        placeholder={placeholder}
+        type={type}
+        {...otherProps.register}
       />
-      {password ? (
-        <div className="flex gap-2 items-center">
-          <h2 className="text-[0.8rem]">
-            Password must be at least 6 characters
-          </h2>
-        </div>
-      ) : null}
+     
     </div>
   );
 };

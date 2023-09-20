@@ -1,42 +1,31 @@
-import React, { useState, ChangeEvent, useEffect } from "react";
-import { FormInput } from "@/components";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
+import { FormInput } from "..";
 import {
   createAuthUserWithEmailAndPassword,
   loginAuthUserWithEmailAndPassword,
   updateAuthProfile,
 } from "@/utils/firebase/firebase";
-import { FormFields } from "@/types/types";
 
 const RegisterLayout = () => {
-  const defaultFormFields = {
-    email: "",
-    password: "",
-    confirmPassword: "",
-    username: "",
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+    getValues,
+  } = useForm();
 
-  const [formFields, setFormFields] = useState<FormFields>(defaultFormFields);
-  const { email, password, confirmPassword, username } = formFields;
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    setFormFields({ ...formFields, [name]: value });
-  };
-
-  const handleRegisterUser = async (event: any) => {
-    event.preventDefault();
-    if (password !== confirmPassword) {
-      console.log("Password");
-      return;
-    }
+  const onSubmit = async (data: FieldValues) => {
+    console.log(data);
 
     try {
-      await createAuthUserWithEmailAndPassword(email, password);
+      await createAuthUserWithEmailAndPassword(data.email, data.password);
 
-      await loginAuthUserWithEmailAndPassword(email, password);
+      await loginAuthUserWithEmailAndPassword(data.email, data.password);
 
-      await updateAuthProfile(username);
+      await updateAuthProfile(data.username);
 
       window.location.href = "./";
 
@@ -44,52 +33,79 @@ const RegisterLayout = () => {
     } catch (error) {
       console.error("Error:", error);
     }
+
+    reset();
   };
 
   return (
     <form
-      onSubmit={handleRegisterUser}
-      className="flex flex-start flex-col gap-2 mt-5">
+      className="flex flex-start flex-col gap-2 mt-5"
+      onSubmit={handleSubmit(onSubmit)}>
       <FormInput
         label="Your name"
         type="text"
-        required
-        name="username"
-        value={username}
-        onChange={handleChange}
         placeholder="First name"
+        register={{
+          ...register("username", {
+            required: "Name is required",
+            minLength: {
+              value: 2,
+              message: "Username must be at least 2 characters"
+            }
+          }),
+        }}
+        errors={errors}
       />
       <FormInput
         label="Email"
         type="email"
-        required
-        name="email"
-        value={email}
-        onChange={handleChange}
+        register={{
+          ...register("email", {
+            required: "Email is required",
+            minLength: {
+              value: 3,
+              message: "Email must be at least 3 characters"
+            }
+          }),
+        }}
+        errors={errors}
       />
       <FormInput
         label="Password"
         type="password"
-        required
-        name="password"
-        value={password}
-        onChange={handleChange}
         placeholder="At least 6 characters"
         password={true}
-        minLength={6}
+        register={{
+          ...register("password", {
+            required: "Password is required",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters",
+            },
+          }),
+        }}
+        errors={errors}
       />
       <FormInput
         label="Re-enter password"
         type="password"
-        required
-        name="confirmPassword"
-        value={confirmPassword}
-        onChange={handleChange}
-        minLength={6}
+        register={{
+          ...register("confirmPassword", {
+            required: "Please confirm your password",
+            minLength: {
+              value: 6,
+              message: "Passwords need to be the same",
+            },
+            validate: (value) =>
+            value === getValues("password") || "Passwords must match",
+          }),
+        }}
+        errors={errors}
       />
       <button
         type="submit"
-        className="py-[0.2rem] px-[0.6rem] w-auto my-2 bg-amazon_yellow_light rounded-xl font-[400]">
+        className="py-[0.2rem] px-[0.6rem] w-auto my-2 bg-amazon_yellow_light rounded-xl font-[400]"
+        disabled={isSubmitting}>
         Register
       </button>
     </form>
