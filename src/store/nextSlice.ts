@@ -4,7 +4,6 @@ import { StoreProduct } from "@/types/types";
 interface NextState {
   productData: StoreProduct[];
   favoriteData: StoreProduct[];
-  allProducts: StoreProduct[];
   user: null | string,
   isLoading: boolean
 }
@@ -12,7 +11,6 @@ interface NextState {
 const initialState: NextState = {
   productData: [],
   favoriteData: [],
-  allProducts: [],
   user: null,
   isLoading: true,
 };
@@ -84,20 +82,7 @@ export const nextSlice = createSlice({
       state.productData = [];
     },
 
-    // Set Product
-    setAllProducts: (state, action) => {
-      state.allProducts = action.payload;
-    },
-    // Login User
-    loginUser: (state, action) => {
-      state.user = action.payload;
-    },
-
-    //Logout User
-    logOutUser: (state) => {
-      state.user = null;
-    },
-
+    // Set the user loading if false = no user, if true  = user
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
@@ -112,9 +97,6 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   resetTheCart,
-  setAllProducts,
-  loginUser,
-  logOutUser,
   setLoading,
 } = nextSlice.actions;
 
