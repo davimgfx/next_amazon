@@ -4,7 +4,7 @@
 
 This website is a simulated representation and not an actual Amazon site. All rights are reserved by Amazon.
 
-👉 Live Demo: [Click here)](https://nextamazon-clone.vercel.app/)
+👉 Live Demo: [Click here](https://nextamazon-clone.vercel.app/)
 
 ### Build with:
 
