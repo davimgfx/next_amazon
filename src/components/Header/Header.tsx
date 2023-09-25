@@ -46,21 +46,21 @@ const Header = () => {
   };
 
   const customBorderClasses =
-    "border border-transparent hover:border-white p-2 h-[3rem] flex flex-col justify-center";
+    "border border-transparent hover:border-white p-2 h-[3rem] flex-col justify-center xl:flex hidden";
   const customBorderClassesCart =
     "border border-transparent hover:border-white p-2 h-[3rem] flex justify-center";
 
   return (
-    <header className="w-full h-[3.8rem] bg-amazon_blue text-white z-50 flex items-center cursor-pointer text-[0.8rem] font-[700] gap-[1rem] px-5">
-      <Link className={customBorderClasses} href={"../"}>
+    <header className="w-full h-[3.8rem] bg-amazon_blue text-white z-50 flex items-center cursor-pointer text-[0.8rem] font-[700] gap-[1rem] px-5 ">
+      <Link className={`${customBorderClassesCart}`} href={"../"}>
         <Image
           src={logo}
           alt="logo_amazon"
-          className="w-[9rem]  object-cover"
+          className="w-[9rem]"
         />
       </Link>
 
-      <div className={`${customBorderClasses} w-[15rem] relative`}>
+      <div className={`${customBorderClasses} w-[15rem] relative `}>
         <IoLocationOutline className="text-white text-[1.5rem] absolute top-5 left-0" />
         <div className="absolute left-6">
           <span className="font-[400]"> Hello</span>
@@ -71,7 +71,7 @@ const Header = () => {
 
       {isLoading ? (
         <Link
-          className={`${customBorderClasses} w-[12.5rem]`}
+          className={`${customBorderClassesCart} w-[12.5rem] flex-col `}
           href={"../login"}>
           <span className="font-[400]">Hello, sign in</span>
           <div className="flex items-center gap-1 relative">

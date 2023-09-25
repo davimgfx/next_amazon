@@ -5,10 +5,10 @@ const Footer = () => {
   return (
     <footer className="text-white text-[0.8rem]">
       <div className="h-[3rem] w-full bg-amazon_blue_more_light flex justify-center items-center ">
-        <span className="text-[0.8rem] font-[500]">Back to top</span>
+        <button className="text-[0.8rem] font-[500]">Back to top</button>
       </div>
-      <div className="bg-amazon_blue_light flex justify-center gap-[5rem] pt-[2.5rem] text-[0.9rem]">
-        <div>
+      <div className="bg-amazon_blue_light flex justify-center gap-[1rem] lg:gap-[5rem] pt-[2.5rem] text-[0.9rem] flex-col md:flex-row items-center md:items-start">
+        <div className="flex items-center flex-col md:items-start">
           <h2 className="pb-[0.6rem] font-[700] cursor-pointer  text-[1rem]">
             Get to Know Us
           </h2>
@@ -18,8 +18,8 @@ const Footer = () => {
           <p className="cursor-pointer my-1">Press Releases</p>
           <p className="cursor-pointer my-1">Amazon Science</p>
         </div>
-        <div>
-          <h2 className="pb-[0.6rem] font-[700] text-[1rem]">
+        <div className="flex items-center flex-col md:items-start">
+          <h2 className="pb-[0.6rem] font-[700] text-[1rem] ">
             Make Money with Us
           </h2>
           <p className="cursor-pointer mb-1">Protect and build your brand</p>
@@ -31,7 +31,7 @@ const Footer = () => {
           <p className="cursor-pointer my-1">Associates Program</p>
           <p className="cursor-pointer my-1">Host an Amazon Hub</p>
         </div>
-        <div>
+        <div className="flex items-center flex-col md:items-start">
           <h2 className="pb-[0.6rem] font-[700] text-[1rem]">
             Let Us Help You
           </h2>
