@@ -6,6 +6,7 @@ interface Props{
 }
 
 const R_Layout = ({children} : Props) => {
+
   return (
     <>
         <Header/>

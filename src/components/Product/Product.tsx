@@ -50,7 +50,7 @@ const Product = ({ product }: { product: ProductProps }) => {
   return (
     <div
       key={_id}
-      className="w-full bg-white text-black p-4 border border-gray-300 rounded-lg group overflow-hidden my-[2rem]  relative z-50">
+      className="w-[20rem] bg-white text-black p-4 border border-gray-300 rounded-lg group overflow-hidden my-[2rem]  relative z-50">
       <div className="w-full">
         <Image
           alt="productImage"

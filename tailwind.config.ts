@@ -17,6 +17,7 @@ const config: Config = {
         lg: "960px",
         lgl: "1024px",
         xl: "1280px",
+        xxl: "1350px"
       },
       colors: {
         amazon_blue: "#131921",

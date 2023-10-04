@@ -5,7 +5,9 @@ import Link from "next/link";
 const Login = () => {
   return (
     <section className="flex justify-center flex-col items-center my-5">
-      <Image src={logo} alt="logo-amazon" className="w-[9rem]" />
+      <Link href={"../"}>
+        <Image src={logo} alt="logo-amazon" className="w-[9rem]" />
+      </Link>
       <div className="w-[25rem] border-2 border-[#DDDDDD] p-6 mt-2 rounded-xl">
         <h2 className="text-[1.5rem]">Sign in</h2>
         <LoginLayout />

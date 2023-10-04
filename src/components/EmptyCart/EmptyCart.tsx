@@ -13,7 +13,7 @@ const EmptyCart = () => {
     <div className="flex flex-col justify-center items-center">
       {isLoading ? (
         <>
-          <div className="flex gap-[2rem] bg-white p-[2rem] w-[80rem] mx-auto">
+          <div className="flex gap-[2rem] bg-white xxl:p-[2rem] xxl:w-[80rem] xxl:mx-auto w-[auto] items-center px-10 py-2 rounded-sm mx-4">
             <Image src={imageEmpty} alt="empty-cart" className="w-[20rem]" />
             <div>
               <h2 className="text-[1.5rem] font-[600]">
@@ -36,7 +36,7 @@ const EmptyCart = () => {
               </div>
             </div>
           </div>
-          <p className="w-[80rem] text-[0.8rem] my-[2rem] ">
+          <p className="text-[0.8rem] m-[2rem] xxl:w-[auto] xxl:w-[80rem] xxl:items-center">
             The price and availability of items at Amazon.com.au are subject to
             change. The Shopping Cart is a temporary place to store a list of
             your items and reflects each items most recent price.

@@ -7,7 +7,7 @@ interface Props {
 
 const Products = ({ productData }: Props) => {
   return (
-    <div className="w-full px-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6  z-50 md:mt-[-5rem] xl:mt-[-20rem]">
+    <div className="flex flex-wrap justify-center gap-x-20 z-50 mt-[-20rem]">
       {productData.map((product: ProductProps) => {
         return <Product product={product} key={product._id}/>;
       })}
