@@ -17,4 +17,4 @@ This website is a simulated representation and not an actual Amazon site. All ri
 - Redux Persist
 - Firebase
 - React Hook Forms
-
+- add star wars
